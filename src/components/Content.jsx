@@ -1,67 +1,64 @@
 import React, { useState } from "react";
 
 const Content = () => {
-  const [prompt, setPrompt] = useState(""); // Estado para el input de texto
-  const [selectedOption, setSelectedOption] = useState(""); // Estado para la lista desplegable
+  const [prompt, setPrompt] = useState("");
+  const [templateId, setTemplateId] = useState(1);
 
-  // Opciones para la lista desplegable
-  const options = [
-    { value: "1", label: "Opción 1" },
-    { value: "2", label: "Opción 2" },
-    { value: "3", label: "Opción 3" },
-  ];
-
-  // Función para manejar el envío del formulario
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Prompt:", prompt);
-    console.log("Opción seleccionada:", selectedOption);
-    alert("Datos enviados correctamente");
+    
+    const data = {
+      prompt,
+      template_id: templateId,
+    };
+
+    try {
+      const response = await fetch("https://127.0.0.1:8000/ppts/generate-ppt/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDk4MzI3LCJpYXQiOjE3NDE0OTQ3MjcsImp0aSI6IjliZmNmNDE0NmRkZDRiZWU5YTAxOTNjNjEwYzNlYzk4IiwidXNlcl9pZCI6M30.oB8a1Yn3W9b25umVEkAixcrrOJquMTsaCl9kzwvAsQk`
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+
+      // Convertir la respuesta en un blob (archivo binario)
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      // Crear un enlace de descarga y hacer clic en él
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "presentacion.pptx"; // Nombre del archivo
+      document.body.appendChild(a);
+      a.click();
+
+      // Limpiar memoria
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
-    <section className="content">
-      {/* Título principal */}
-      <h1 className="main-title">Presentaciones</h1>
-
-      {/* Formulario para el prompt y la lista desplegable */}
-      <form onSubmit={handleSubmit} className="prompt-form">
-        <div className="input-container">
-          {/* Input de texto para el prompt */}
-          <input
-            type="text"
-            placeholder="Escribe tu prompt aquí..."
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            className="prompt-input"
-          />
-
-          {/* Lista desplegable */}
-          <select
-            value={selectedOption}
-            onChange={(e) => setSelectedOption(e.target.value)}
-            className="prompt-select"
-          >
-            <option value="">Selecciona una opción</option>
-            {options.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Botón de enviar */}
-        <button type="submit" className="submit-button">
-          Enviar
-        </button>
-      </form>
-
-      {/* Pie de página */}
-      <footer className="footer">
-        <p>© 2023 TecCreate. Todos los derechos reservados.</p>
-      </footer>
-    </section>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Escribe tu tema"
+        value={prompt}
+        onChange={(e) => setPrompt(e.target.value)}
+      />
+      <select value={templateId} onChange={(e) => setTemplateId(Number(e.target.value))}>
+        <option value={1}>Plantilla 1</option>
+        <option value={2}>Plantilla 2</option>
+        <option value={3}>Plantilla 3</option>
+      </select>
+      <button type="submit">Generar PPT</button>
+    </form>
   );
 };
 
