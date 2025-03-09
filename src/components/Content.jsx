@@ -1,12 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import "./Content.css";
 
 const Content = () => {
   const [prompt, setPrompt] = useState("");
   const [templateId, setTemplateId] = useState(1);
+  const [accessToken, setAccessToken] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(""); // Estado para el mensaje de éxito
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      setAccessToken(token);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
+    if (!accessToken) {
+      alert("Debes iniciar sesión para generar una PPT.");
+      return;
+    }
+
+    setLoading(true);
+    setSuccessMessage(""); // Limpiar mensaje anterior
+
     const data = {
       prompt,
       template_id: templateId,
@@ -17,7 +36,7 @@ const Content = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxNDk4MzI3LCJpYXQiOjE3NDE0OTQ3MjcsImp0aSI6IjliZmNmNDE0NmRkZDRiZWU5YTAxOTNjNjEwYzNlYzk4IiwidXNlcl9pZCI6M30.oB8a1Yn3W9b25umVEkAixcrrOJquMTsaCl9kzwvAsQk`
+          "Authorization": `Bearer ${accessToken}`
         },
         body: JSON.stringify(data),
       });
@@ -26,39 +45,60 @@ const Content = () => {
         throw new Error("Error en la solicitud");
       }
 
-      // Convertir la respuesta en un blob (archivo binario)
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
 
-      // Crear un enlace de descarga y hacer clic en él
       const a = document.createElement("a");
       a.href = url;
-      a.download = "presentacion.pptx"; // Nombre del archivo
+      a.download = "presentacion.pptx";
       document.body.appendChild(a);
       a.click();
-
-      // Limpiar memoria
       window.URL.revokeObjectURL(url);
+
+      setSuccessMessage("✅ Diapositiva generada correctamente!");
     } catch (error) {
       console.error("Error:", error);
+      setSuccessMessage("❌ Hubo un error al generar la diapositiva.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Escribe tu tema"
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-      />
-      <select value={templateId} onChange={(e) => setTemplateId(Number(e.target.value))}>
-        <option value={1}>Plantilla 1</option>
-        <option value={2}>Plantilla 2</option>
-        <option value={3}>Plantilla 3</option>
-      </select>
-      <button type="submit">Generar PPT</button>
-    </form>
+    <div className="content-container">
+      <form className="content-form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Escribe tu tema"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          className="content-input"
+        />
+        <select 
+          value={templateId} 
+          onChange={(e) => setTemplateId(Number(e.target.value))}
+          className="content-select"
+        >
+          <option value={1}>Plantilla 1</option>
+          <option value={2}>Plantilla 2</option>
+          <option value={3}>Plantilla 3</option>
+        </select>
+        <button type="submit" className="content-button">Generar PPT</button>
+      </form>
+
+      {loading && (
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <p>Generando presentación...</p>
+        </div>
+      )}
+
+      {successMessage && (
+        <div className="success-message">
+          <p>{successMessage}</p>
+        </div>
+      )}
+    </div>
   );
 };
 
