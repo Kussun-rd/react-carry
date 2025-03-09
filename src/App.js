@@ -1,13 +1,17 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import GoogleLoginButton from "./components/GoogleLoginButton";
+import Plantilla from "./components/Plantilla";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <h2>Iniciar sesión con Google</h2>
-      <GoogleLoginButton />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<GoogleLoginButton />} /> {/* Ruta del login */}
+        <Route path="/plantilla" element={<Plantilla />} /> {/* Ruta de la plantilla */}
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

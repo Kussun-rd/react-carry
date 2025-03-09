@@ -1,0 +1,104 @@
+/* Estilos generales */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .login-card {
+    background: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente */
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    backdrop-filter: blur(10px); /* Efecto de desenfoque */
+  }
+  
+  .welcome-box {
+    background: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .welcome-title {
+    font-size: 2rem;
+    color: #2d3436;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  .subtitle {
+    color: #636e72;
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 500;
+  }
+  
+  /* Botón de Google */
+  .google-login-button {
+    width: 100%;
+    padding: 14px;
+    background-color: #4285f4;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  .google-login-button:hover {
+    background-color: #357abd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .google-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* Sección de bienvenida */
+  .welcome-section {
+    padding: 20px 0;
+  }
+  
+  .welcome-text {
+    font-size: 1.2rem;
+    color: #2d3436;
+    margin: 0 0 25px 0;
+  }
+  
+  /* Botón de cerrar sesión */
+  .logout-button {
+    padding: 12px 30px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .logout-button:hover {
+    background-color: #c0392b;
+  }
+  
+  /* Texto de términos y condiciones */
+  .footer-text {
+    color: #636e72;
+    font-size: 0.8rem;
+    margin: 25px 0 0 0;
+  }

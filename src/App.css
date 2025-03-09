@@ -1,38 +1,374 @@
-.App {
+/* Estilos globales */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f8ff;
+  color: #333;
+}
+
+/* ------------------------------------ */
+/* Contenido Principal */
+/* ------------------------------------ */
+.main-title {
+  color: #333;
   text-align: center;
+  margin: 40px 0 30px;
+  font-size: 2.2rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.actions-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  gap: 20px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin: 0 20px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 15px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn.primary {
+  background: #00bfff;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.action-btn.secondary {
+  background: #f0f8ff;
+  color: #00bfff;
+  border: 2px solid #00bfff;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.action-btn.upload {
+  background: #333;
+  color: white;
+}
+
+/* Efectos hover */
+.action-btn.primary:hover {
+  background: #0099cc;
+  transform: translateY(-2px);
+}
+
+.action-btn.secondary:hover {
+  background: #e0f4ff;
+}
+
+.action-btn.upload:hover {
+  background: #444;
+}
+
+/* ------------------------------------ */
+/* Estilos de la Barra Lateral */
+/* ------------------------------------ */
+.sidebar {
+  position: fixed;
+  left: -250px;
+  width: 250px;
+  height: 100vh;
+  background: white;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+/* Encabezado de búsqueda */
+.sidebar-header {
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.search-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+kbd {
+  background: #f0f8ff;
+  padding: 3px 6px;
+  border-radius: 4px;
+  border: 1px solid #00bfff;
+  font-family: Arial;
+  color: #00bfff;
+}
+
+/* Campo de búsqueda */
+.gamma-search {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #00bfff;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.gamma-search:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.2);
+}
+
+/* Secciones de la barra */
+.sidebar-section {
+  padding: 16px;
+}
+
+.sidebar-section label {
+  display: block;
+  color: #666;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Opciones interactivas */
+.gamma-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 4px 0;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.gamma-option:hover {
+  background: #f0f8ff;
+  transform: translateX(4px);
+}
+
+/* ------------------------------------ */
+/* Contenido Principal */
+/* ------------------------------------ */
+.main-content {
+  flex: 1;
+  margin-left: 0;
+  transition: margin-left 0.3s ease;
+  width: 100%;
+}
+
+.sidebar.open + .main-content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+}
+
+/* Botón de la barra lateral */
+.sidebar-toggle {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 0 50% 50% 0;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1001;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+}
+
+/* ------------------------------------ */
+/* Componentes Principales */
+/* ------------------------------------ */
+/* Header */
+.header {
+  background-color: #00bfff;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Tarjetas de contenido */
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin: 20px;
+}
+
+/* Footer */
+.footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: auto;
+}
+/* ------------------------------------ */
+/* Sección de Perfil de Usuario */
+/* ------------------------------------ */
+.user-profile {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 20px 16px;
+border-bottom: 1px solid #e0e0e0;
+}
+
+.profile-icon {
+width: 40px;
+height: 40px;
+background: #00bfff;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-weight: bold;
+font-size: 16px;
+}
+
+.profile-info {
+flex: 1;
+min-width: 0; /* Permite el truncado de texto */
+}
+
+.profile-name {
+font-weight: 600;
+color: #333;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.profile-status {
+font-size: 0.8rem;
+color: #666;
+margin-top: 2px;
+}
+
+/* Estilos para la foto de perfil */
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Estilos para el correo electrónico */
+.profile-email {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 2px;
+}
+
+/* Estilos para el botón de cerrar sesión */
+.logout-button {
+  width: 80%;
+  padding: 10px;
+  background-color: #e74c3c; /* Color rojo */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin: 20px 0;
+  transition: background-color 0.3s ease;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.logout-button:hover {
+  background-color: #c0392b; /* Color rojo oscuro al hacer hover */
+}
+
+.generate-ppt-button {
+  padding: 10px 20px;
+  background: #00bfff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background 0.3s;
+}
+
+.generate-ppt-button:hover {
+  background: #0099cc;
+}
+
+/* Estilos para el formulario */
+.prompt-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor del input y la lista desplegable */
+.input-container {
+  display: flex;
+  gap: 10px;
+}
+
+/* Input de texto */
+.prompt-input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #00bfff;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.prompt-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.2);
+}
+
+/* Lista desplegable */
+.prompt-select {
+  padding: 10px;
+  border: 2px solid #00bfff;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.prompt-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.2);
+}
+
+/* Botón de enviar */
+.submit-button {
+  padding: 10px 20px;
+  background: #00bfff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-button:hover {
+  background: #0099cc;
 }
