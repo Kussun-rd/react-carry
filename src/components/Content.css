@@ -3,12 +3,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
     background: linear-gradient(135deg, #47d2f1, #2a5298);
-    padding: 16px;
+    padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    max-width: 600px;
+    max-width: 1000px;
     margin: 20px auto;
   }
   
@@ -117,6 +117,38 @@
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
   }
+  
+  /* Estilo del input numérico */
+.content-number {
+  width: 70px; /* Tamaño ajustado */
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.3);
+  color: rgb(15, 12, 12);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Efecto hover */
+.content-number:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+}
+
+/* Efecto focus */
+.content-number:focus {
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid #2a5298;
+  box-shadow: 0 0 10px rgba(42, 82, 152, 0.6);
+}
+
   
   
   

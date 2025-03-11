@@ -1,0 +1,84 @@
+.mis-plantillas-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .plantillas-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .plantilla-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .plantilla-text {
+    flex: 1;
+    text-align: left;
+    font-size: 14px;
+  }
+  
+  .botones {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .descargar-btn,
+  .eliminar-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .descargar-btn {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .eliminar-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .descargar-btn:hover {
+    background-color: #388E3C;
+  }
+  
+  .eliminar-btn:hover {
+    background-color: #C82333;
+  }
+  
+  .crear-nueva-btn {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .crear-nueva-btn:hover {
+    background-color: #0056b3;
+  }
+  

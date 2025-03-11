@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <header className="header">
       <h1>TecCreate</h1>
-      <p>Mañana es importante hacer más...</p>
+      <p>Innovacion en un solo clic...</p>
     </header>
   );
 };

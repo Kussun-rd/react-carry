@@ -347,7 +347,7 @@ margin-top: 2px;
   border: 2px solid #00bfff;
   border-radius: 8px;
   font-size: 1rem;
-  background: white;
+  background: rgb(255, 255, 255);
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -372,3 +372,82 @@ margin-top: 2px;
 .submit-button:hover {
   background: #0099cc;
 }
+
+.sidebar-section {
+  padding: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.plantillas-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.plantilla-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  margin-bottom: 5px;
+  transition: all 0.3s ease;
+}
+
+.plantilla-item:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.plantilla-text {
+  flex: 1;
+  color: #000000;
+  font-size: 0.9rem;
+}
+
+.plantilla-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-download,
+.icon-delete {
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  transition: transform 0.2s;
+}
+
+.icon-download:hover {
+  color: #4caf50;
+  transform: scale(1.2);
+}
+
+.icon-delete:hover {
+  color: #ff3d00;
+  transform: scale(1.2);
+}
+
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centrar completamente */
+  gap: 10px; /* Espacio entre el icono y el texto */
+  width: 50%; /* Ocupar todo el ancho disponible */
+  margin: 10px auto; /* Centrar en el sidebar */
+  padding: 12px 0; /* Espaciado interno */
+  text-align: center; /* Asegurar que el texto esté centrado */
+  border-radius: 8px; /* Bordes redondeados */
+  }
+
+.sidebar-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+

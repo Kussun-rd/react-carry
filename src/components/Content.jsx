@@ -4,9 +4,10 @@ import "./Content.css";
 const Content = () => {
   const [prompt, setPrompt] = useState("");
   const [templateId, setTemplateId] = useState(1);
+  const [numSlides, setNumSlides] = useState(1);
   const [accessToken, setAccessToken] = useState("");
   const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(""); // Estado para el mensaje de éxito
+  const [successMessage, setSuccessMessage] = useState(""); // Mensaje de éxito o error
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -29,6 +30,7 @@ const Content = () => {
     const data = {
       prompt,
       template_id: templateId,
+      num_slides: numSlides
     };
 
     try {
@@ -74,6 +76,7 @@ const Content = () => {
           onChange={(e) => setPrompt(e.target.value)}
           className="content-input"
         />
+
         <select 
           value={templateId} 
           onChange={(e) => setTemplateId(Number(e.target.value))}
@@ -83,6 +86,17 @@ const Content = () => {
           <option value={2}>Plantilla 2</option>
           <option value={3}>Plantilla 3</option>
         </select>
+
+        {/* Nuevo selector de número de diapositivas */}
+        <input 
+          type="number" 
+          min="1" 
+          max="40" 
+          value={numSlides} 
+          onChange={(e) => setNumSlides(Number(e.target.value))}
+          className="content-number"
+        />
+
         <button type="submit" className="content-button">Generar PPT</button>
       </form>
 
