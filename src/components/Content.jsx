@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
 import "./Content.css";
 
 const Content = () => {
@@ -32,7 +32,7 @@ const Content = () => {
     }
 
     setLoading(true);
-    setSuccessMessage(""); 
+    setSuccessMessage("");
 
     const data = {
       prompt,
@@ -76,13 +76,14 @@ const Content = () => {
   return (
     <div className="content-container">
       <form className="content-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
+        {/* Reemplazamos el input de texto por un textarea con el mismo estilo anterior */}
+        <textarea
           placeholder="Escribe tu tema"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
-          className="content-input"
-        />
+          className="content-textarea styled-input"
+          rows="3"
+        ></textarea>
 
         <select 
           value={templateId} 
@@ -93,12 +94,6 @@ const Content = () => {
             <option key={index + 1} value={index + 1}>Plantilla {index + 1}</option>
           ))}
         </select>
-
-        <img 
-          src={templatePreview} 
-          alt="Plantilla seleccionada"
-          className="template-preview"
-        />
 
         <input 
           type="number" 
@@ -112,6 +107,16 @@ const Content = () => {
         <button type="submit" className="content-button">Generar PPT</button>
       </form>
 
+      {/* Caja de vista previa de la plantilla */}
+      <div className="template-preview-box">
+        <img 
+          src={templatePreview} 
+          alt="Plantilla seleccionada"
+          className="template-preview"
+        />
+      </div>
+
+      {/* Mensajes de carga y éxito debajo de la vista previa */}
       {loading && (
         <div className="loading-container">
           <div className="spinner"></div>

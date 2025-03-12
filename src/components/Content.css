@@ -1,153 +1,185 @@
-/* Estilo general del formulario */
-.content-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    background: linear-gradient(135deg, #47d2f1, #2a5298);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    max-width: 1000px;
-    margin: 20px auto;
-  }
-  
-  /* Estilos de los inputs y select */
-  .content-input,
-  .content-select {
-    padding: 12px 16px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 8px;
-    outline: none;
-    background: rgba(255, 255, 255, 0.2);
-    color: rgb(15, 12, 12);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-  }
-  
-  .content-input::placeholder {
-    color: rgb(11, 10, 10);
-  }
-  
-  .content-input {
-    flex: 1;
-    min-width: 200px;
-  }
-  
-  .content-select {
-    cursor: pointer;
-  }
-  
-  /* Efecto hover */
-  .content-input:focus,
-  .content-select:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: scale(1.05);
-  }
-  
-  /* Botón estilizado */
-  .content-button {
-    padding: 12px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    background: #ff5722;
-    color: rgb(240, 240, 240);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  .content-button:hover {
-    background: #e64a19;
-    transform: scale(1.1);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  }
+/* Estilos generales */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
 
-  /* Contenedor principal */
-.content-container {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  /* Animación de carga */
-  .loading-container {
-    margin-top: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .spinner {
-    width: 30px;
-    height: 30px;
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid #ff5722;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  /* Texto de carga */
-  .loading-container p {
-    color: rgb(7, 7, 7);
-    font-weight: bold;
-  }
-
-  /* Mensaje de éxito */
-.success-message {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #2ecc71; /* Verde */
-    color: rgb(8, 7, 7);
-    font-weight: bold;
-    border-radius: 5px;
-    display: inline-block;
-    animation: fadeIn 0.5s ease-in-out;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  /* Estilo del input numérico */
-.content-number {
-  width: 70px; /* Tamaño ajustado */
-  padding: 12px;
+/* Estilos para el textarea (input de texto) */
+textarea {
+  width: 100%;
+  max-width: 4000px;
+  height: 100px;
+  padding: 12px 16px;
   font-size: 1rem;
-  font-weight: bold;
-  text-align: center;
-  border: none;
+  border: 2px solid #007bff;
   border-radius: 10px;
   outline: none;
+  background: rgba(245, 245, 245, 0.2);
+  color: rgb(3, 3, 3);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  resize: none !important;
+}
+
+textarea:focus {
   background: rgba(255, 255, 255, 0.3);
-  color: rgb(15, 12, 12);
-  backdrop-filter: blur(8px);
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+/* Caja de vista previa de la plantilla */
+.template-preview-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;  /* Centra el contenedor */
+  background: #f0f0f0;
+  border-radius: 12px;
+  padding: 15px;
+  width: 750px;  /* Ajusta el ancho */
+  height: 250px; /* Ajusta el alto */
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  border: 2px solid #007bff;
+}
+
+.template-preview {
+  width: 100% !important; /* Ocupa el mismo ancho que el contenedor padre */
+  max-width: 95% !important; /* Ajusta el ancho similar al input */
+  height: auto !important; /* Mantiene la proporción */
+  max-height: 200px !important; /* Reduce la altura */
+  display: block;
+  margin: auto; /* Centra la imagen */
+  object-fit: cover; /* Ajusta la imagen sin deformarla */
+}
+
+
+
+/* Estilos del formulario */
+.content-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(135deg, #6bddf7, #2a5298);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+/* Inputs y select */
+.content-input,
+.content-select,
+.content-number {
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: rgb(3, 3, 3);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.content-input::placeholder {
+  color: rgb(9, 8, 8);
+}
+
+.content-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.content-select {
+  cursor: pointer;
+}
+
+.content-input:focus,
+.content-select:hover,
+.content-number:hover,
+.content-number:focus {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* Botón estilizado */
+.content-button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  background: #ff5722;
+  color: rgb(240, 240, 240);
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Efecto hover */
-.content-number:hover {
-  background: rgba(255, 255, 255, 0.5);
-  transform: scale(1.05);
+.content-button:hover {
+  background: #e64a19;
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Efecto focus */
-.content-number:focus {
-  background: rgba(255, 255, 255, 0.6);
-  border: 2px solid #2a5298;
-  box-shadow: 0 0 10px rgba(42, 82, 152, 0.6);
+/* Contenedor principal */
+.content-container {
+  text-align: center;
+  margin-top: 20px;
 }
+
+/* Animación de carga */
+.loading-container {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #ff5722;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Texto de carga */
+.loading-container p {
+  color: rgb(7, 7, 7);
+  font-weight: bold;
+}
+
+/* Mensaje de éxito */
+.success-message {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #2ecc71;
+  color: rgb(8, 7, 7);
+  font-weight: bold;
+  border-radius: 5px;
+  display: inline-block;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilo de vista previa de plantillas */
 .template-preview {
   width: 120px;
   height: 80px;
@@ -166,7 +198,3 @@
   transform: scale(0.98);
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
 }
-
-  
-  
-  
