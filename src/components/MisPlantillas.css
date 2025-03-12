@@ -2,7 +2,7 @@
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #6bddf7, #2a5298);
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -22,7 +22,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #fff;
+    background: linear-gradient(135deg, #d3dcde, #5dc8d4);
     padding: 12px;
     margin-bottom: 10px;
     border-radius: 8px;
@@ -55,7 +55,7 @@
   }
   
   .eliminar-btn {
-    background-color: #dc3545;
+    background-color: #d45562;
     color: white;
   }
   
