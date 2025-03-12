@@ -7,7 +7,8 @@ const Content = () => {
   const [numSlides, setNumSlides] = useState(1);
   const [accessToken, setAccessToken] = useState("");
   const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(""); // Mensaje de éxito o error
+  const [successMessage, setSuccessMessage] = useState("");
+  const [templatePreview, setTemplatePreview] = useState("/images/plantillas/template1.png");
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -15,6 +16,12 @@ const Content = () => {
       setAccessToken(token);
     }
   }, []);
+
+  const handleTemplateChange = (e) => {
+    const selectedTemplate = Number(e.target.value);
+    setTemplateId(selectedTemplate);
+    setTemplatePreview(`/images/plantillas/template${selectedTemplate}.png?t=${new Date().getTime()}`);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +32,7 @@ const Content = () => {
     }
 
     setLoading(true);
-    setSuccessMessage(""); // Limpiar mensaje anterior
+    setSuccessMessage(""); 
 
     const data = {
       prompt,
@@ -79,15 +86,20 @@ const Content = () => {
 
         <select 
           value={templateId} 
-          onChange={(e) => setTemplateId(Number(e.target.value))}
+          onChange={handleTemplateChange}
           className="content-select"
         >
-          <option value={1}>Plantilla 1</option>
-          <option value={2}>Plantilla 2</option>
-          <option value={3}>Plantilla 3</option>
+          {[...Array(8)].map((_, index) => (
+            <option key={index + 1} value={index + 1}>Plantilla {index + 1}</option>
+          ))}
         </select>
 
-        {/* Nuevo selector de número de diapositivas */}
+        <img 
+          src={templatePreview} 
+          alt="Plantilla seleccionada"
+          className="template-preview"
+        />
+
         <input 
           type="number" 
           min="1" 
