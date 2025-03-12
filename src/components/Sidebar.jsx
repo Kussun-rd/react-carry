@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FolderOpen } from "lucide-react";
 
-const Sidebar = ({ userData }) => {
+const Sidebar = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // Detectar la URL actual
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(
     localStorage.getItem("sidebarOpen") === "true"
+  );
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData")) || null
   );
 
   useEffect(() => {
@@ -16,14 +19,22 @@ const Sidebar = ({ userData }) => {
     }
   }, [location.pathname]);
 
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("userData"));
+    if (storedUser) {
+      setUserData(storedUser);
+    }
+  }, []);
+
   const handleLogout = () => {
-    localStorage.removeItem("userName");
+    localStorage.removeItem("userData");
+    localStorage.removeItem("accessToken");
+    setUserData(null);
     navigate("/");
   };
 
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>
-      {/* Ocultar la flecha si está en /mis-plantillas */}
       {location.pathname !== "/MisPlantillas" && (
         <button className="sidebar-toggle" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? "◄" : "►"}
@@ -33,7 +44,7 @@ const Sidebar = ({ userData }) => {
       <div className="sidebar-content">
         <div className="user-profile">
           <div className="profile-icon">
-            {userData ? (
+            {userData && userData.picture ? (
               <img
                 src={userData.picture}
                 alt="Foto de perfil"
@@ -49,12 +60,10 @@ const Sidebar = ({ userData }) => {
           </div>
         </div>
 
-        {/* Botón de Mis Plantillas */}
         <button className="sidebar-btn" onClick={() => navigate("/MisPlantillas")}>
           <FolderOpen size={20} /> Mis Plantillas
         </button>
 
-        {/* Botón de Cerrar sesión */}
         <button onClick={handleLogout} className="logout-button">
           Cerrar sesión
         </button>

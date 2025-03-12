@@ -7,14 +7,15 @@ import "./GoogleLoginButton.css";
 
 const GoogleLoginButton = () => {
   const clientId = "64075915222-g6fb8obd0qmgpqtpqdol40m6g5o56o4i.apps.googleusercontent.com";
-  const [userName, setUserName] = useState(localStorage.getItem("userName") || null);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData")) || null
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("userName");
+    const storedUser = JSON.parse(localStorage.getItem("userData"));
     if (storedUser) {
-      setUserName(storedUser);
+      setUserData(storedUser);
     }
   }, []);
 
@@ -22,33 +23,32 @@ const GoogleLoginButton = () => {
     console.log("Token de Google recibido:", response.credential);
 
     try {
-        const userProfile = jwtDecode(response.credential);
-        console.log("Perfil del usuario:", userProfile);
+      const userProfile = jwtDecode(response.credential);
+      console.log("Perfil del usuario:", userProfile);
 
-        const backendResponse = await axios.post(
-            "https://127.0.0.1:8000/usuarios/google-auth/",
-            { token: response.credential },
-            { headers: { "Content-Type": "application/json" } }
-        );
+      const backendResponse = await axios.post(
+        "https://127.0.0.1:8000/usuarios/google-auth/",
+        { token: response.credential },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-        console.log("Respuesta del backend:", backendResponse.data);
+      console.log("Respuesta del backend:", backendResponse.data);
 
-        // Guardar el accessToken del backend
-        const accessToken = backendResponse.data.tokens.access;
-        localStorage.setItem("accessToken", accessToken);
+      // Guardar el accessToken del backend
+      const accessToken = backendResponse.data.tokens.access;
+      localStorage.setItem("accessToken", accessToken);
 
-        alert("Inicio de sesión exitoso");
+      // Guardar userData en localStorage
+      localStorage.setItem("userData", JSON.stringify(userProfile));
+      setUserData(userProfile);
 
-        localStorage.setItem("userName", userProfile.name || "Usuario");
-        setUserName(userProfile.name);
-
-        navigate("/plantilla", { state: { userData: userProfile } });
+      alert("Inicio de sesión exitoso");
+      navigate("/plantilla");
     } catch (error) {
-        console.error("Error en la autenticación:", error.response ? error.response.data : error);
-        alert("Error al autenticar. Revisa la consola.");
+      console.error("Error en la autenticación:", error.response ? error.response.data : error);
+      alert("Error al autenticar. Revisa la consola.");
     }
-};
-
+  };
 
   const handleFailure = () => {
     console.error("Error al iniciar sesión con Google");
@@ -56,10 +56,10 @@ const GoogleLoginButton = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("userName");
-    localStorage.removeItem("accessToken"); // Eliminar el token
-    setUserName(null);
+    localStorage.removeItem("userData");
+    localStorage.removeItem("accessToken");
     setUserData(null);
+    navigate("/");
   };
 
   return (
@@ -79,9 +79,9 @@ const GoogleLoginButton = () => {
             <p className="subtitle">Innovación en cada clic</p>
           </div>
 
-          {userName ? (
+          {userData ? (
             <div className="welcome-section">
-              <p className="welcome-text">👋 Hola, {userName}</p>
+              <p className="welcome-text">👋 Hola, {userData.name}</p>
               <button onClick={handleLogout} className="logout-button">
                 Cerrar sesión
               </button>

@@ -23,9 +23,33 @@ const MisPlantillas = () => {
     if (accessToken) fetchPresentaciones();
   }, [accessToken]);
 
-  const handleDownload = (id) => {
-    window.location.href = `https://127.0.0.1:8000/ppts/download/${id}/`;
+  const handleDownload = async (id) => {
+    try {
+      const response = await fetch(`https://127.0.0.1:8000/ppts/download/${id}/`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${accessToken}`
+        }
+      });
+  
+      if (!response.ok) {
+        throw new Error("Error al descargar la presentación");
+      }
+  
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+  
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `presentacion_${id}.pptx`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error al descargar:", error);
+    }
   };
+  
 
   const handleDelete = async (id) => {
     try {
