@@ -65,14 +65,14 @@ const MisPlantillas = () => {
     }
   };
 
-  // 🔹 Función para agrupar por día
+  // 🔹 Función corregida para agrupar por día (evita errores de zona horaria)
   const agruparPorDia = () => {
     const presentacionesPorDia = {};
 
     presentaciones.forEach((ppt) => {
-      if (!ppt.fecha_creacion) return; // Evita errores si la fecha es nula
+      if (!ppt.fecha_creacion) return;
 
-      const fecha = new Date(ppt.fecha_creacion).toISOString().split("T")[0]; // Formato YYYY-MM-DD
+      const fecha = new Date(ppt.fecha_creacion).toLocaleDateString("es-ES");
 
       if (!presentacionesPorDia[fecha]) {
         presentacionesPorDia[fecha] = [];
@@ -92,28 +92,30 @@ const MisPlantillas = () => {
 
       {/* 🔹 Secciones por día */}
       {Object.keys(presentacionesPorDia).length > 0 ? (
-        Object.keys(presentacionesPorDia).map((fecha) => (
-          <div key={fecha} className="agrupacion-dia">
-            <h3>{fecha}</h3>
-            <ul className="plantillas-list">
-              {presentacionesPorDia[fecha].map((ppt) => (
-                <li key={ppt.id} className="plantilla-item">
-                  <span className="plantilla-text">
-                    {ppt.prompt} - {ppt.fecha_creacion}
-                  </span>
-                  <div className="botones">
-                    <button className="descargar-btn" onClick={() => handleDownload(ppt.id)}>
-                      Descargar
-                    </button>
-                    <button className="eliminar-btn" onClick={() => handleDelete(ppt.id)}>
-                      Eliminar
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))
+        Object.keys(presentacionesPorDia)
+          .sort((a, b) => new Date(b) - new Date(a)) // Ordenar de más reciente a más antiguo
+          .map((fecha) => (
+            <div key={fecha} className="agrupacion-dia">
+              <h3>{fecha}</h3>
+              <ul className="plantillas-list">
+                {presentacionesPorDia[fecha].map((ppt) => (
+                  <li key={ppt.id} className="plantilla-item">
+                    <span className="plantilla-text">
+                      {ppt.prompt} - {ppt.fecha_creacion}
+                    </span>
+                    <div className="botones">
+                      <button className="descargar-btn" onClick={() => handleDownload(ppt.id)}>
+                        Descargar
+                      </button>
+                      <button className="eliminar-btn" onClick={() => handleDelete(ppt.id)}>
+                        Eliminar
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
       ) : (
         <p>No hay presentaciones disponibles.</p>
       )}
